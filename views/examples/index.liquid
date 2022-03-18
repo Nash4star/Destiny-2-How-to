@@ -1,17 +1,17 @@
 {% layout 'layout.liquid'%}
 {% block content %}
 <div>
-    <h2 class="display-6">All Examples</h2>
+    <h2 class="display-6">Exotic list</h2>
     <div class="row">
         {% for example in examples %}
         <div class="card" style="width: 18rem;">
             <h5 class="card-header">{{ example.title }}</h5>
             <div class="card-body">
                 <h5 class="card-title">
-                    Ready?: {{ example.ready }}
+                    Completed: {{ example.ready }}
                 </h5>
                 <p class="card-text">
-                    Body: {{ example.body }}
+                    Stats: {{ example.body }}
                 </p>
                 <p class="card-text">
                     Amount: {{ example.amount }}
@@ -22,6 +22,11 @@
             </div>
         </div>
         {% endfor %}
+        <div>
+            <a href="/weapons" class="btn btn-success">
+                Veiw {{ weapons.title }}
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}
