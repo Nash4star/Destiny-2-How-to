@@ -1,10 +1,12 @@
 const express = require('express')
 const Weapons = require('../models/weapons')
+const fetch = require('node-fetch')
+
 
 const router = express.Router()
 
 router.get("/", (req, res) => {
-    fetch("https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/2221042415", {
+    fetch("https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/922980709", {
     method: 'GET',
         headers: {
             'X-API-KEY': `${process.env.API_KEY}`,
@@ -13,6 +15,7 @@ router.get("/", (req, res) => {
         },
     })
     .then(weapons => {
+        console.log(weapons, "this shows the response from api")
         const username = req.session.username
         const loggedIn = req.session.loggedIn
         
@@ -22,7 +25,7 @@ router.get("/", (req, res) => {
         res.redirect(`/error?error=${error}`)
     })
 })  
-// sows the users Exoitics
+// shows the users Exoitics
 router.get('/mine', (req, res) => {
     // destructure user info from req.session
     const { username, userId, loggedIn } = req.session
