@@ -1,37 +1,89 @@
 {% layout 'layout.liquid' %}
 {% block content %}
 <div class="container-sm">
-    <form action="/examples" method="POST">
+    <form action="/new" method="POST">
         <fieldset>
-            <legend>Create New Example</legend>
+            <legend>Create New Exotic</legend>
             <label class="form-label">Title: </label>
             <input 
                 type="text" 
                 name="title" 
-                placeholder="enter example title"
+                placeholder="enter Exotic title"
                 class="form-control"
             >
-            <label class="form-label">Body:</label>
+            <label class="form-label">Lore:</label>
             <input 
                 type="text" 
                 name="body" 
-                placeholder="enter example body" 
+                placeholder="enter Lore" 
                 class="form-control"
             >
-            <label class="form-label">Amount:</label>
+            <label class="form-label">Rounds Per Minute:</label>
             <input 
                 type="number" 
-                name="amount" 
+                name="amount"
+                value="RPM value"
                 class="form-control"
             >
-            <label class="form-label">Ready:</label>
+            <label class="form-label">Impact:</label>
             <input 
-                type="checkbox" 
-                name="ready" 
-                class="form-check-input"
+                type="number" 
+                name="amount"
+                value="Impact value"
+                class="form-control"
             >
+            <label class="form-label">Range:</label>
+            <input 
+                type="number" 
+                name="amount"
+                value="Range value"
+                class="form-control"
+            >
+            <label class="form-label">Stability:</label>
+            <input 
+                type="number" 
+                name="amount"
+                value="Stability value"
+                class="form-control"
+            >
+            <label class="form-label">Handling:</label>
+            <input 
+                type="number" 
+                name="amount"
+                value="Handling value"
+                class="form-control"
+            >
+            <label class="form-label">Reload Speed:</label>
+            <input 
+                type="number" 
+                name="amount"
+                value="Reload Speed value"
+                class="form-control"
+            >
+            <label class="form-label">Magazine:</label>
+            <input 
+                type="number" 
+                name="amount"
+                value="Magazine size"
+                class="form-control"
+            >
+            <label class="form-label">Exotic Perk:</label>
+            <input 
+                type="text" 
+                name="body" 
+                placeholder="enter Exotic Perk" 
+                class="form-control"
+            >
+            <label class="form-label">Perk:</label>
+            <input 
+                type="text" 
+                name="body" 
+                placeholder="enter Perk" 
+                class="form-control"
+            >
+
         </fieldset>
-        <input type="submit" value="Create New Example" class="btn btn-success">
+        <input type="submit" value="Create New Exotic" class="btn btn-success">
     </form>
 </div>
 {% endblock %}

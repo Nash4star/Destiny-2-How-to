@@ -3,21 +3,21 @@
 <div>
     <h2 class="display-6">Exotic list</h2>
     <div class="row">
-        {% for example in examples %}
+        {% for weapon in exotics %}
         <div class="card" style="width: 18rem;">
-            <h5 class="card-header">{{ example.title }}</h5>
+            <h5 class="card-header">{{ weapons.title }}</h5>
             <div class="card-body">
                 <h5 class="card-title">
-                    Completed: {{ example.ready }}
+                    Completed: {{ weapons.ready }}
                 </h5>
                 <p class="card-text">
-                    Stats: {{ example.body }}
+                    Stats: {{ weapons.body }}
                 </p>
                 <p class="card-text">
-                    Amount: {{ example.amount }}
+                    Amount: {{ weapons.amount }}
                 </p>
-                <a href="/examples/{{ example.id }}" class="btn btn-info">
-                    View {{ example.title }}
+                <a href="/weapons/{{ weapons.id }}" class="btn btn-info">
+                    View {{ weapons.title }}
                 </a>
             </div>
         </div>

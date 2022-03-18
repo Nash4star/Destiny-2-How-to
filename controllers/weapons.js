@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require('express')
 const Weapons = require('../models/weapons')
 const fetch = require('node-fetch')
@@ -10,10 +11,12 @@ router.get("/", (req, res) => {
     method: 'GET',
         headers: {
             'X-API-KEY': `${process.env.API_KEY}`,
+            // `${process.env.API_KEY}`
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
     })
+
     .then(weapons => {
         console.log(weapons, "this shows the response from api")
         const username = req.session.username
@@ -40,7 +43,7 @@ router.get('/mine', (req, res) => {
 
 router.get('/new', (req, res) => {
 	const { username, userId, loggedIn } = req.session
-	res.render('waepons/new', { username, loggedIn })
+	res.render('weapons/new', { username, loggedIn })
 })
 
 router.post('/', (req, res) => {
