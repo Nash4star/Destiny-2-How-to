@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require('express')
 const Weapons = require('../models/weapons')
 const fetch = require('node-fetch')
+const { response } = require("express")
 
 
 const router = express.Router()
@@ -11,23 +12,34 @@ router.get("/", (req, res) => {
     method: 'GET',
         headers: {
             'X-API-KEY': `${process.env.API_KEY}`,
-            // `${process.env.API_KEY}`
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
     })
 
+    .then(responseData => {
+        console.log('responceData', responseData)
+        responseData.json()
+        // console.log('responceDatajson info', responseData.json())
+            .then(something => {
+                console.log('responseDatajson', something)
+                const weapons = something.Response.preview.derivedItemCategories[0].items
+                console.log('this is weapons', weapons)
+            })
     .then(weapons => {
-        console.log(weapons, "this shows the response from api")
+        // console.log(weapons, "this shows the response from api")
+        // const Items = weapons.preview.derivedItemCategories
+        // console.log(Items, 'show itmes')
         const username = req.session.username
         const loggedIn = req.session.loggedIn
         
-        res.render('weapons/index', { weapons, username, loggedIn })
+        res.send('weapons/index')
     })
     .catch(error => {
         res.redirect(`/error?error=${error}`)
-    })
-})  
+        })
+    })  
+})
 // shows the users Exoitics
 router.get('/mine', (req, res) => {
     // destructure user info from req.session
