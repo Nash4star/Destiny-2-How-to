@@ -27,14 +27,13 @@ router.get("/", (req, res) => {
                 const weapons = something.Response.preview.derivedItemCategories[0].items
                 console.log('this is weapons', weapons)
             })
-    .then(weapons => {
-        // console.log(weapons, "this shows the response from api")
-        // const Items = weapons.preview.derivedItemCategories
-        // console.log(Items, 'show itmes')
-        const username = req.session.username
-        const loggedIn = req.session.loggedIn
-        
-        res.render('weapons/list')
+            .then(weapons => {
+                // console.log(weapons, "this shows the response from api")
+                 // const Items = weapons.preview.derivedItemCategories
+                 // console.log(Items, 'show itmes')
+                 const username = req.session.username
+                 const loggedIn = req.session.loggedIn
+                 res.render('weapons/list')
     })
     .catch(error => {
         res.redirect(`/error?error=${error}`)
@@ -56,89 +55,87 @@ router.get('/mine', (req, res) => {
 
 
 // edit route -> GET that takes us to the edit form view
-router.get('/:id/edit', (req, res) => {
-	// we need to get the id
-	const weaponsId = req.params.id
-	Weapons.findById(weaponsId)
-		.then(weapons => {
-			res.render('weapons/edit', { weapons })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// router.get('/:id/edit', (req, res) => {
+// 	// we need to get the id
+// 	const weaponsId = req.params.id
+// 	Weapons.findById(weaponsId)
+// 		.then(weapons => {
+// 			res.render('weapons/edit', { weapons })
+// 		})
+// 		.catch((error) => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
 
 // update route
-router.put('/:id', (req, res) => {
-	const weaponsId = req.params.id
-	req.body.ready = req.body.ready === 'on' ? true : false
+// router.put('/:id', (req, res) => {
+// 	const weaponsId = req.params.id
+// 	req.body.ready = req.body.ready === 'on' ? true : false
 
-	Weapons.findByIdAndUpdate( weaponsId, req.body, { new: true })
-		.then(weapons => {
-			res.redirect(`/weapons/${weapons.id}`)
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// 	Weapons.findByIdAndUpdate( weaponsId, req.body, { new: true })
+// 		.then(weapons => {
+// 			res.redirect(`/weapons/${weapons.id}`)
+// 		})
+// 		.catch((error) => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
 
-router.get('/:id', (req, res) => {
-	const weaponsId = req.params.id
-	Weapons.findById(weaponsId)
-		.then(weapons => {
-            const {username, loggedIn, userId} = req.session
-			res.render('weapons/show', { weapons, username, loggedIn, userId })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// router.get('/:id', (req, res) => {
+// 	const weaponsId = req.params.id
+// 	Weapons.findById(weaponsId)
+// 		.then(weapons => {
+//             const {username, loggedIn, userId} = req.session
+// 			res.render('weapons/show', { weapons, username, loggedIn, userId })
+// 		})
+// 		.catch((error) => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
 
-router.delete('/:id', (req, res) => {
-	const weaponsId = req.params.id
-	Weapons.findByIdAndRemove(weaponsId)
-		.then(weapons => {
-			res.redirect('/weapons')
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// router.delete('/:id', (req, res) => {
+// 	const weaponsId = req.params.id
+// 	Weapons.findByIdAndRemove(weaponsId)
+// 		.then(weapons => {
+// 			res.redirect('/weapons')
+// 		})
+// 		.catch(error => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
 
-router.get("/list/coldheart", (req, res) => {
-    fetch("https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/1345867571", {
-    method: 'GET',
-        headers: {
-            'X-API-KEY': `${process.env.API_KEY}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-    })
+// router.get("/exotics", (req, res) => {
+//     fetch("https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/922980709/", {
+//     method: 'GET',
+//         headers: {
+//             'X-API-KEY': `${process.env.API_KEY}`,
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//     })
 
-    .then(responseData => {
-        console.log('responceData', responseData)
-        responseData.json()
-        // console.log('responceDatajson info', responseData.json())
-            // to get the information to be processed into a form that can be read in json.
-            .then(something => {
-                console.log('responseDatajson', something)
-                const weapons = something.Response
-                console.log('this is weapons', weapons)
-                
-            })
-    .then(weapons => {
-        // console.log(weapons, "this shows the response from api")
-        // const Items = weapons.preview.derivedItemCategories
-        // console.log(Items, 'show itmes')
-        const username = req.session.username
-        const loggedIn = req.session.loggedIn
-        
-        res.render('weapons/name/coldheart')
-    })
-    .catch(error => {
-        res.redirect(`/error?error=${error}`)
-        })
-    })  
-})
+//     .then(responseData => {
+//         console.log('responceData', responseData)
+//         responseData.json()
+//         // console.log('responceDatajson info', responseData.json())
+//             // to get the information to be processed into a form that can be read in json.
+//             .then(something => {
+//                 console.log('responseDatajson', something)
+//                 const weapons = something.Response.preview.derivedItemCategories[0].items
+//                 console.log('this is weapons', weapons)
+//             })
+//             .then(weapons => {
+//                 // console.log(weapons, "this shows the response from api")
+//                  // const Items = weapons.preview.derivedItemCategories
+//                  // console.log(Items, 'show itmes')
+//                  const username = req.session.username
+//                  const loggedIn = req.session.loggedIn
+//                  res.render('weapons/name/exotics')
+//     })
+//     .catch(error => {
+//         res.redirect(`/error?error=${error}`)
+//         })
+//     })  
+// })
 
 module.exports = router
