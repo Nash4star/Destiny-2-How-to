@@ -17,6 +17,7 @@ const weaponsSchema = new Schema(
         magazine: { type: Number, required: true },
 		exotic_perk: { type: String, required: true },
         perk: { type: String, required: true },
+        collected: {type: Boolean},
 		owner: {
 			type: Schema.Types.ObjectID,
 			ref: 'User',
