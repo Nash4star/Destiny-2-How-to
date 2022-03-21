@@ -54,24 +54,6 @@ router.get('/mine', (req, res) => {
 		})
 })
 
-router.get('/new', (req, res) => {
-	const { username, userId, loggedIn } = req.session
-	res.render('weapons/new', { username, loggedIn })
-})
-
-router.post('/', (req, res) => {
-	req.body.ready = req.body.ready === 'on' ? true : false
-
-	req.body.owner = req.session.userId
-	Weapons.create(req.body)
-		.then(weapons => {
-			console.log('this was returned from create', weapons)
-			res.redirect('/weapons')
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
 
 // edit route -> GET that takes us to the edit form view
 router.get('/:id/edit', (req, res) => {
@@ -140,8 +122,9 @@ router.get("/list/coldheart", (req, res) => {
             // to get the information to be processed into a form that can be read in json.
             .then(something => {
                 console.log('responseDatajson', something)
-                const weapons = something.Response.preview.derivedItemCategories[0].items
+                const weapons = something.Response
                 console.log('this is weapons', weapons)
+                
             })
     .then(weapons => {
         // console.log(weapons, "this shows the response from api")
@@ -150,7 +133,7 @@ router.get("/list/coldheart", (req, res) => {
         const username = req.session.username
         const loggedIn = req.session.loggedIn
         
-        res.render('weapons/list/coldheart')
+        res.render('weapons/name/coldheart')
     })
     .catch(error => {
         res.redirect(`/error?error=${error}`)

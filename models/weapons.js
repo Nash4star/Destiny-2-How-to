@@ -6,7 +6,7 @@ const { Schema, model } = mongoose
 
 const weaponsSchema = new Schema(
 	{
-		title: { type: String, required: true },
+		title: { type: String, required: true},
 		lore: { type: String, required: true },
         rpm: { type: Number, required: true },
         impact: { type: Number, required: true },
