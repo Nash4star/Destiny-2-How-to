@@ -21,6 +21,7 @@ router.get("/", (req, res) => {
         console.log('responceData', responseData)
         responseData.json()
         // console.log('responceDatajson info', responseData.json())
+            // to get the information to be processed into a form that can be read in json.
             .then(something => {
                 console.log('responseDatajson', something)
                 const weapons = something.Response.preview.derivedItemCategories[0].items
@@ -33,7 +34,7 @@ router.get("/", (req, res) => {
         const username = req.session.username
         const loggedIn = req.session.loggedIn
         
-        res.send('weapons/index')
+        res.render('weapons/list')
     })
     .catch(error => {
         res.redirect(`/error?error=${error}`)
@@ -120,6 +121,41 @@ router.delete('/:id', (req, res) => {
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
 		})
+})
+
+router.get("/list/coldheart", (req, res) => {
+    fetch("https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/1345867571", {
+    method: 'GET',
+        headers: {
+            'X-API-KEY': `${process.env.API_KEY}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+
+    .then(responseData => {
+        console.log('responceData', responseData)
+        responseData.json()
+        // console.log('responceDatajson info', responseData.json())
+            // to get the information to be processed into a form that can be read in json.
+            .then(something => {
+                console.log('responseDatajson', something)
+                const weapons = something.Response.preview.derivedItemCategories[0].items
+                console.log('this is weapons', weapons)
+            })
+    .then(weapons => {
+        // console.log(weapons, "this shows the response from api")
+        // const Items = weapons.preview.derivedItemCategories
+        // console.log(Items, 'show itmes')
+        const username = req.session.username
+        const loggedIn = req.session.loggedIn
+        
+        res.render('weapons/list/coldheart')
+    })
+    .catch(error => {
+        res.redirect(`/error?error=${error}`)
+        })
+    })  
 })
 
 module.exports = router

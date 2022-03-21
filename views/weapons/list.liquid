@@ -1,0 +1,33 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-md">
+    <article>
+        <h4> Name : ColdHeart
+            <a href="/weapons/{{ weapons.itemHash.1345867571 }}" class="btn btn-info">
+                View {{ weapons.title }}
+            </a>
+        </h4>
+        <h4>Rounds Per Minute: {{ weapons.rpm }}
+            <a href="/weapons/{{ weapons.id }}" class="btn btn-info">
+                View {{ weapons.title }}
+            </a>
+        </h4>
+        <h4>Impact: {{ weapons.impact }}
+            <a href="/weapons/{{ weapons.id }}" class="btn btn-info">
+                View {{ weapons.title }}
+            </a>
+        </h4>
+        <h4>Range: {{ weapons.range }}
+            <a href="/weapons/{{ weapons.id }}" class="btn btn-info">
+                View {{ weapons.title }}
+            </a>
+        </h4>
+        <h4>Stability: {{ weapons.stability }}</h4>
+        <h4>Handling: {{ weapons.handling }}</h4>
+        <h4>Reload Speed: {{ weapons.reload_speed }}</h4>
+        <h4>Magazine Size: {{ weapons.magazine }}</h4>
+        <h4>Exotic Perk: {{ weapons.exotic_perk }}</h4>
+        <h4>Perk: {{ weapons.perk }}</h4>
+    </article>
+</div>
+{% endblock %}
