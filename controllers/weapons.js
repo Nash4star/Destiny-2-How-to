@@ -53,6 +53,41 @@ router.get('/mine', (req, res) => {
 		})
 })
 
+router.get("/weapons/list", (req, res) => {
+    fetch("https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${item[0]}", {
+    method: 'GET',
+        headers: {
+            'X-API-KEY': `${process.env.API_KEY}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+
+    .then(responseData => {
+        // console.log('responceData', responseData)
+        responseData.json()
+        // console.log('responceDatajson info', responseData.json())
+            // to get the information to be processed into a form that can be read in json.
+            .then(something => {
+                // console.log('responseDatajson', something)
+                const name = something.Response.displayProperties.name
+                const lore = something.Response.flavorText
+                const weaponsStat = something.Response.stats.stats
+                console.log('These are the itemHash', weapons)
+            })
+            .then(weapons => {
+                // console.log(weapons, "this shows the response from api")
+                 // const Items = weapons.preview.derivedItemCategories
+                 // console.log(Items, 'show itmes')
+                 const username = req.session.username
+                 const loggedIn = req.session.loggedIn
+                 res.render('weapons/show')
+    })
+    .catch(error => {
+        res.redirect(`/error?error=${error}`)
+        })
+    })  
+})
 
 // edit route -> GET that takes us to the edit form view
 router.get('/:id/edit', (req, res) => {
