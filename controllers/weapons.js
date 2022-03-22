@@ -25,8 +25,8 @@ router.get("/", (req, res) => {
             .then(something => {
                 // console.log('responseDatajson', something)
                 const weapons = something.Response.preview.derivedItemCategories[0].items
-                console.log('These are the itemHash', weapons)
-                console.log('this is itemHash for index 0' ,weapons[0].itemHash)
+                // console.log('These are the itemHash', weapons)
+                // console.log('this is itemHash for index 0' ,weapons[0].itemHash)
                 const username = req.session.username
                 const loggedIn = req.session.loggedIn
                 res.render('weapons/list', { weapons, username, loggedIn })
@@ -83,7 +83,6 @@ router.put('/:id', (req, res) => {
 
 router.get('/:id', (req, res) => {
 	const weaponsId = req.params.id
-    console.log('weapons it', weaponsId)
     fetch(`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${weaponsId}`, {
     method: 'GET',
         headers: {
@@ -103,15 +102,22 @@ router.get('/:id', (req, res) => {
                 console.log('These are the itemHash', something)
                 // console.log('responseDatajson', something)
                 const name = something.Response.displayProperties.name
-                console.log('this is the name', name)
+                // console.log('this is the name', name)
                 const lore = something.Response.flavorText
-                console.log('lore', lore)
-                const weaponsStat = something.Response.stats.stats['1931675084'].value
-                console.log('weaponStats', weaponsStat)
+                // console.log('lore', lore)
+                const rpm = something.Response.stats.stats['4284893193'].value
+                const impact = something.Response.stats.stats['4043523819'].value
+                const range = something.Response.stats.stats['1240592695'].value
+                const stability = something.Response.stats.stats['155624089'].value
+                const handling = something.Response.stats.stats['943549884'].value
+                const reload = something.Response.stats.stats['4188031367'].value
+                const mag = something.Response.stats.stats['3871231066'].value
+
+                // console.log('rpm', rpm)
                 
                 const username = req.session.username
                 const loggedIn = req.session.loggedIn
-                res.render('weapons/show', { name, lore, username, loggedIn })
+                res.render('weapons/show', { name, lore, rpm, impact, range, stability, handling, reload, mag, username, loggedIn })
         })
             
     .catch(error => {
