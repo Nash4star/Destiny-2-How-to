@@ -26,15 +26,12 @@ router.get("/", (req, res) => {
                 // console.log('responseDatajson', something)
                 const weapons = something.Response.preview.derivedItemCategories[0].items
                 console.log('These are the itemHash', weapons)
+                console.log('this is itemHash for index 0' ,weapons[0].itemHash)
+                const username = req.session.username
+                const loggedIn = req.session.loggedIn
+                res.render('weapons/list', { weapons, username, loggedIn })
             })
-            .then(weapons => {
-                // console.log(weapons, "this shows the response from api")
-                 // const Items = weapons.preview.derivedItemCategories
-                 // console.log(Items, 'show itmes')
-                 const username = req.session.username
-                 const loggedIn = req.session.loggedIn
-                 res.render('weapons/list')
-    })
+            
     .catch(error => {
         res.redirect(`/error?error=${error}`)
         })
@@ -53,41 +50,9 @@ router.get('/mine', (req, res) => {
 		})
 })
 
-router.get("/weapons/list", (req, res) => {
-    fetch("https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${item[0]}", {
-    method: 'GET',
-        headers: {
-            'X-API-KEY': `${process.env.API_KEY}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-    })
-
-    .then(responseData => {
-        // console.log('responceData', responseData)
-        responseData.json()
-        // console.log('responceDatajson info', responseData.json())
-            // to get the information to be processed into a form that can be read in json.
-            .then(something => {
-                // console.log('responseDatajson', something)
-                const name = something.Response.displayProperties.name
-                const lore = something.Response.flavorText
-                const weaponsStat = something.Response.stats.stats
-                console.log('These are the itemHash', weapons)
-            })
-            .then(weapons => {
-                // console.log(weapons, "this shows the response from api")
-                 // const Items = weapons.preview.derivedItemCategories
-                 // console.log(Items, 'show itmes')
-                 const username = req.session.username
-                 const loggedIn = req.session.loggedIn
-                 res.render('weapons/show')
-    })
-    .catch(error => {
-        res.redirect(`/error?error=${error}`)
-        })
-    })  
-})
+// router.get("/weapons/list", (req, res) => {
+     
+// })
 
 // edit route -> GET that takes us to the edit form view
 router.get('/:id/edit', (req, res) => {
@@ -118,14 +83,42 @@ router.put('/:id', (req, res) => {
 
 router.get('/:id', (req, res) => {
 	const weaponsId = req.params.id
-	Weapons.findById(weaponsId)
-		.then(weapons => {
-            const {username, loggedIn, userId} = req.session
-			res.render('weapons/show', { weapons, username, loggedIn, userId })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
+    console.log('weapons it', weaponsId)
+    fetch(`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${weaponsId}`, {
+    method: 'GET',
+        headers: {
+            'X-API-KEY': `${process.env.API_KEY}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+
+    .then(responseData => {
+        // console.log('responceData', responseData)
+        return responseData.json()
+        // console.log('responceDatajson info', responseData.json())
+            // to get the information to be processed into a form that can be read in json.
+        })
+        .then(something => {
+                console.log('These are the itemHash', something)
+                // console.log('responseDatajson', something)
+                const name = something.Response.displayProperties.name
+                console.log('this is the name', name)
+                const lore = something.Response.flavorText
+                console.log('lore', lore)
+                const weaponsStat = something.Response.stats.stats['1931675084'].value
+                console.log('weaponStats', weaponsStat)
+                
+                const username = req.session.username
+                const loggedIn = req.session.loggedIn
+                res.render('weapons/show', { name, lore, username, loggedIn })
+        })
+            
+    .catch(error => {
+        res.redirect(`/error?error=${error}`)
+        })
+     
+	
 })
 
 router.delete('/:id', (req, res) => {
